@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'nytimes' => [
+        'key' => env('NYTIMES_API_KEY'),
+        'secret' => env('NYTIMES_API_SECRET'),
+    ],
+
 ];
