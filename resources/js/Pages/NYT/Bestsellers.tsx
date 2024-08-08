@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, usePage, router } from '@inertiajs/react';
 
 interface Book {
@@ -9,18 +9,25 @@ interface Book {
     rating: number;
 }
 
-interface Props {
-    books: Book[];
-    query: string;
-}
 
-const TestNYT: React.FC<Props> = ({ books, query }) => {
 
-    const [searchQuery, setSearchQuery] = useState(query);
+const Bestsellers: React.FC= () => {
+
+    const { props } = usePage();
+    const initialBooks = props.books as Book[];
+
+    const [searchQuery, setSearchQuery] = useState('');
+    const [books, setBooks] = useState<Book[]>(initialBooks);
 
     const handleSearch = () => {
-        router.get('/nyt/bestsellers', { q: searchQuery });
+        router.get('/nyt/search', { q: searchQuery });
+
     };
+
+    const handleLike = (book: Book) => {
+        console.log('Liked book:', book);
+    }
+
 
     return (
         <div>
@@ -31,16 +38,17 @@ const TestNYT: React.FC<Props> = ({ books, query }) => {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search by title"
             />
-            <button onClick={handleSearch}>Search</button>
+            <button onClick={handleSearch} className="flex justify-between items-center">Search</button>
             <ul>
                 {books.map((book) => (
                     <li key={book.isbn13}>
                         {book.title} by {book.author}
+                        <button onClick={() => handleLike(book)} className="bg-green-500 text-white p-2 rounded">Like</button>
                     </li>
                 ))}
             </ul>
         </div>
     );
-};
+}
 
-export default TestNYT;
+export default Bestsellers;

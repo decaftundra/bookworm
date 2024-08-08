@@ -16,7 +16,13 @@ class BookController extends Controller
 
     public function store(Request $request)
     {
-        $book = Auth::user()->books()->create($request->all());
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'rating' => 'required|integer|min:0|max:5',
+            'price' => 'required|numeric',
+        ]);
+        $book = Auth::user()->books()->create($validatedData);
         return response()->json($book, 201);
     }
 
@@ -28,8 +34,14 @@ class BookController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'title' => 'sometimes|string|max:255',
+            'author' => 'sometimes|string|max:255',
+            'rating' => 'sometimes|integer|min:0|max:5',
+            'price' => 'sometimes|numeric',
+        ]);
         $book = Auth::user()->books()->findOrFail($id);
-        $book->update($request->all());
+        $book->update($validatedData);
         return response()->json($book, 200);
     }
 
