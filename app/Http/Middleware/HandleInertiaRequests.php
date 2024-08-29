@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Middleware;
+  namespace App\Http\Middleware;
 
-use Illuminate\Http\Request;
-use Inertia\Middleware;
+  use Illuminate\Http\Request;
+  use Inertia\Middleware;
 
-class HandleInertiaRequests extends Middleware
-{
+  class HandleInertiaRequests extends Middleware
+  {
     /**
      * The root template that is loaded on the first page visit.
      *
@@ -19,7 +19,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function version(Request $request): string|null
     {
-        return parent::version($request);
+      return parent::version($request);
     }
 
     /**
@@ -29,11 +29,11 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        return [
-            ...parent::share($request),
-            'auth' => [
-                'user' => $request->user(),
-            ],
-        ];
+      return [
+        ...parent::share($request),
+        'auth' => [
+          'user' => $request->user(),
+        ],
+      ];
     }
-}
+  }

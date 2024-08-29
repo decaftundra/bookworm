@@ -1,13 +1,14 @@
-import { PropsWithChildren } from 'react';
-import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
+import {PropsWithChildren} from 'react';
+import {Dialog, DialogPanel, Transition, TransitionChild} from '@headlessui/react';
 
 export default function Modal({
-    children,
-    show = false,
-    maxWidth = '2xl',
-    closeable = true,
-    onClose = () => {},
-}: PropsWithChildren<{
+                                  children,
+                                  show = false,
+                                  maxWidth = '2xl',
+                                  closeable = true,
+                                  onClose = () => {
+                                  },
+                              }: PropsWithChildren<{
     show: boolean;
     maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
     closeable?: boolean;
@@ -43,7 +44,7 @@ export default function Modal({
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="absolute inset-0 bg-gray-500/75" />
+                    <div className="absolute inset-0 bg-gray-500/75"/>
                 </TransitionChild>
 
                 <TransitionChild

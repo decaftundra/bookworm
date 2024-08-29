@@ -1,31 +1,38 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\NYTimesController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+  use App\Http\Controllers\BookController;
+  use App\Http\Controllers\NYTimesController;
+  use App\Http\Controllers\ProfileController;
+  use App\Models\User;
+  use Illuminate\Foundation\Application;
+  use Illuminate\Support\Facades\Route;
+  use Inertia\Inertia;
 
-Route::get('/', function () {
+  Route::get('/', function () {
     return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+      'canLogin' => Route::has('login'),
+      'canRegister' => Route::has('register'),
+      'laravelVersion' => Application::VERSION,
+      'phpVersion' => PHP_VERSION,
     ]);
-});
+  });
 
-Route::get('/dashboard', function () {
+  Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+  })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+  Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/nyt/bestsellers', [NYTimesController::class, 'fetchBestSellers'])->name('nyt.bestsellers');
     Route::get('/nyt/search', [NYTimesController::class, 'searchBooks'])->name('nyt.search');
-});
+    Route::post('/nyt/like', [BookController::class, 'addFavourites'])->name('books.like');
+  });
 
-require __DIR__.'/auth.php';
+  Route::get('/user', function () {
+    User::where('email');
+  });
+
+  require __DIR__ . '/auth.php';
