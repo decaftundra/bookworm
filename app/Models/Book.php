@@ -26,7 +26,7 @@
     /**
      * Get the user that owns the book.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user(): BelongsTo
     {

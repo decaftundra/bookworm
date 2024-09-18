@@ -16,7 +16,7 @@
         $table->string('title');
         $table->string('author');
         $table->integer('rating')->default(0);
-        $table->decimal('price', 8, 2)->nullable();
+        $table->decimal('price')->nullable();
         $table->timestamps();
       });
     }

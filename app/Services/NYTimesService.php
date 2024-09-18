@@ -10,7 +10,7 @@
     {
       $apiKey = config('services.nytimes.key');
       $response = Http::get(
-        "https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key={$apiKey}",
+        "https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=$apiKey",
       );
       return $response->json()['results']['books'];
     }
@@ -24,7 +24,7 @@
 
       do {
         $response = Http::get(
-          "https://api.nytimes.com/svc/books/v3/lists/best-sellers/history.json?api-key={$apiKey}&title={$query}&offset={$offset}",
+          "https://api.nytimes.com/svc/books/v3/lists/best-sellers/history.json?api-key=$apiKey&title=$query&offset=$offset",
         );
         $data = $response->json();
 

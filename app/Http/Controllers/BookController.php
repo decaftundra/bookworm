@@ -40,7 +40,7 @@
       ]);
       $book = Auth::user()->books()->findOrFail($id);
       $book->update($validatedData);
-      return response()->json($book, 200);
+      return response()->json($book);
     }
 
     public function destroy($id)

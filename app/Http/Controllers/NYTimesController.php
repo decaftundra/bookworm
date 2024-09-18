@@ -10,7 +10,7 @@
   {
     private function renderBestsellers(array $books)
     {
-      return Inertia::render('  ', [
+      return Inertia::render('NYT/Bestsellers', [
         'books' => $books,
       ]);
     }
